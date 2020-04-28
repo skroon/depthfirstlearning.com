@@ -10,20 +10,33 @@ Terminated with quote.
 Condensed version of Why section below?"
 feedback: true
 ---
-
+TODO: "Written jointly  by [blank]"?
 TODO: Thanks: Avital, Rianne, Laurent, people sitting in on sessions, students.
 TODO: Correct date in metadata and filename
+TODO: Construct dependency diagram, figure out click-to-navigate
+TODO: Expand readings below with my comments from my weekly curricula doc? (Or what?)  Also, should I include supporting material? (Omitting for now)
+TODO: Revise the readings that didn't work so well?
+TODO: Incorporate solutions somehow. (Colabs?) (Remove additional examples we don't have solutions for?)
+TODO: Motivate the EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks? Anything else?)
+TODO: Decide on handling for regular questions/exercises vs stuff marked "Additional".
+TODO: Work through comments on curriculum document for any other changes.
+
+
 
 <div class="deps-graph">
 <iframe class="deps" src="/assets/vi-with-nfs.svg" width="200"></iframe>
-<div>Concept dependency graph. Click to navigate. TODO: Construct this, figure out click-to-navigate</div>
+<div>Concept dependency graph. Click to navigate.</div>
 </div>
 
 # Why
 
-TODO: Motivation
+Variational inference forms a cornerstone of large-scale Bayesian inference.
+Large-scale neural architectures making use of variational inference have been enabled by approaches allowing computationally and statistically efficient approximate gradient-based techniques for the optimization required by variational inference - the prototypical resulting model is the variational autoencoder.
 
-In this curriculum, TODO: What we will cover
+A complementary objective to efficient variational inference in a given variational family, is maintaining efficiency while allowing a richer variational family of approximate posteriors.
+Normalizing flows are an elegant approach to representing complex densities as transformations from a simple density.
+
+This curriculum develops key concepts in inference and variational inference, leading up to the autoencoder, and considers the relevant computational requirements for tackling certain tasks with normalizing flows.  The key focus of the curriculum is the paper [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770), which uses normalizing flows to enrich the representation used for the approximate posterior in a variational autoencoder.
 
 <br />
 
@@ -63,9 +76,6 @@ After this part, you should:
 
 **Required Reading** 
 
-TODO: Expand stuff below with my comments from my weekly curricula doc? (Or what?)  Also, should I include supporting material? (Omitting for now)
-TODO: Revise the readings that didn't work so well?
-
 Important concepts in probability and information theory:
 - Ian Goodfellow et al., [Deep Learning, the following portions of Chapter 3](https://www.deeplearningbook.org/contents/prob.html): Sections 3.9.6 and 3.11--3.13 (excluding the portion in Section 3.12 on measure theory). [Note that the content of Chapter 3 before Section 3.9.3 is assumed background knowledge.]
  
@@ -92,23 +102,17 @@ TODO: Should this be for going further, or supporting material?
 
 3. *Posterior inference via conjugacy*. Suppose you have data $$D$$ consisting of i.i.d. observations $$x_1, \ldots, x_n \sim \mathcal{N}(\mu, \sigma^2 =1)$$.
 
-a. Specify the likelihood of the observations $$p(D; \mu)$$.
+    a. Specify the likelihood of the observations $$p(D; \mu)$$.
 
-b. Derive the maximum likelihood estimate of $$\mu$$.
+    b. Derive the maximum likelihood estimate of $$\mu$$.
 
-c. Suppose we model our uncertainty about the mean with $$\mu \sim \mathcal{N}(0, \sigma_{\mu}^2 = 1)$$. Derive the posterior distribution by making use of conjugacy, and use this to obtain the MAP estimate of $$\mu$$.
-
-TODO: Figure out why numbering is breaking here.
+    c. Suppose we model our uncertainty about the mean with $$\mu \sim \mathcal{N}(0, \sigma_{\mu}^2 = 1)$$. Derive the posterior distribution by making use of conjugacy, and use this to obtain the MAP estimate of $$\mu$$.
 
 4. Prove that the KL divergence $$\mathrm{KL}(q \mid p)$$ is nonnegative. Approach: apply the bound $$\log t \leq t-1$$ to $$t=p(x)/q(x)$$.  TODO: Convert this to a hint?
 
 5. *KL divergence for simple normal distributions*. Show that $$\text{KL}\left(\mathcal{N}\left((\mu_1, \ldots, \mu_k)^\mathsf{T}, \operatorname{diag} (\sigma_1^2, \ldots, \sigma_k^2)\right) \parallel \mathcal{N}\left(\mathbf{0}, \mathbf{I}\right)\right)$$ equals $${1 \over 2} \sum_{i=1}^k (\sigma_i^2 + \mu_i^2 - \ln(\sigma_i^2) - 1)$$.  TODO: Formatting?
 
 6. Derive Equation (7) in [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf).
-
-TODO: Incorporate solutions somehow.
-
-TODO: Need to edit below here...
 
 <br />
 
@@ -139,15 +143,11 @@ Variational inference:
 
 - David Blei, Alp Kucukelbir, and Jon D. McAuliffe, [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf), until the end of Section 4.2.
 
-TODO: Motivate the EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks?)
-
 **Additional Reading**:
 
 1. The rest of Dimitris G. Tzikas, Aristidis C. Likas, and Nikolaos P. Galatsanos, [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf).
 
 **Questions**:
-
-TODO: Decide on handling for regular questions vs stuff marked "Additional".
 
 1. *Forward vs reverse KL*. Consider the univariate distribution $$P$$ formed by an equal mixture of unit variance Gaussians with means at -5 and 5. Think about how a Gaussian distribution $$Q$$ would look that minimizes (i) $$\mathrm{KL}(Q\|P)$$ and (ii) $$\mathrm{KL}(P\|Q)$$. Explain your answers.  Which approximation behaviour do you think is preferable for posterior inference, and why? Which approach do you think will be more tractable, and why? __Additional__: implement the required KL calculations - sampling or other tricks will be required - and numerically optimize to fit the optimal Q in each case.
 2. *EM vs. variational inference*. Describe how Bayesian inference of latent variables and unknown parameters can be seen as a special case of the EM algorithm.  Extend this analogy to compare coordinate ascent variational inference to mean-field variational EM.
@@ -217,9 +217,9 @@ Section 5 is optional, but note the dramatic effect of the variance reduction te
 
 2. *The score function*. For a parameterized distribution $$p(x; \theta)$$, the score is defined as the gradient (w.r.t. $$\theta$$) of the log-density, and the covariance matrix of the score under this distribution is called the Fisher information matrix.
 
-a. Derive the score function for a univariate Gaussian.
+    a. Derive the score function for a univariate Gaussian.
 
-b. Show that the expected score (w.r.t.$$p$$) is zero.
+    b. Show that the expected score (w.r.t.$$p$$) is zero.
 
 3. *Fisher as the Hessian of relative entropy*. Assuming $$\log q_{\lambda}$$ is twice differentiable, one has that the entries of the Fisher can also be written as $$[F_\lambda]_{ij} = -\mathbb{E}_{x \sim q_{\lambda}}[\frac{\partial^2}{\partial \lambda_i \partial \lambda_j} \log q_{\lambda} (x)]$$. (_Additional_: derive this.) Use this formulation to show that the Fisher is the Hessian (w.r.t. $$\lambda^{\prime}$$) of the KL divergence $$\mathrm{KL}(q_\lambda \mid q_{\lambda^\prime})$$  at $$\lambda^\prime = \lambda$$.
 
@@ -244,7 +244,6 @@ Note that $$\beta$$ appears in all terms of the log-joint, while any specific $$
 
 11. __Additional__: Implement BBVI for the Bayesian Gaussian mixture model, and compare its performance to the previous techniques (both with and without variance reduction techniques).
 
-TODO: Work through comments on curriculum document for any other changes.
 <br />
 
 # 4 Inference networks and amortized VI
@@ -303,29 +302,29 @@ Implement both estimators (the one from the previous section and the one from th
 In the VAE, the ELBO is used to jointly optimize the parameters of the encoder and the decoder.
 Consider the decomposition of the marginal likelihood in Equation 2.8 of [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691).
  
-a. Suppose $$\theta$$ is held fixed, and $$\phi$$ is optimized w.r.t. the ELBO.
+    a. Suppose $$\theta$$ is held fixed, and $$\phi$$ is optimized w.r.t. the ELBO.
 This is similar to other VI approaches, except that an inference network is now used for amortized analysis.
 This has no effect on the marginal likelihood of the generative model (which should be expected, since $$\theta$$ is fixed), but makes the variational posterior better.
 
-b. Suppose now that $$\phi$$ is held fixed, and $$\theta$$  is optimized w.r.t. the ELBO.
+    b. Suppose now that $$\phi$$ is held fixed, and $$\theta$$  is optimized w.r.t. the ELBO.
 This may make the variational posterior less accurate. Why is it nevertheless a good idea?
 
-Finally, note that end-to-end optimization of the ELBO across the encoder and decoder essentially corresponds to interleaving stochastic gradient descent w.r.t. the two above steps.
+    Finally, note that end-to-end optimization of the ELBO across the encoder and decoder essentially corresponds to interleaving stochastic gradient descent w.r.t. the two above steps.
 
 5. *VAE implementation and exploration*. (TODO: Modify this to make resources available another way?) Complete the VAE implementation in vae.py. (This is a stripped-down version of a PyTorch VAE example.) (TODO: Find original and link it?)
 
-a. Note how the provided code uses the VAE to sample new images.
+    a. Note how the provided code uses the VAE to sample new images.
 
-b. Can you suggest a good way to sample images of a specific digit? (Note: don’t spend a lot of time on this!) (TODO: Consider deleting this?)
+    b. Can you suggest a good way to sample images of a specific digit? (Note: don’t spend a lot of time on this!) (TODO: Consider deleting this?)
 
-c. __Additional__: Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set?
+    c. __Additional__: Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set?
 
 6. __Additional__: *Relationship to nonlinear PCA*. An earlier approach to constructing low-dimensional representations (for compression or further analysis) was nonlinear PCA.  This used a low-dimensional bottleneck layer in an autoencoder model, and then extracted the representation at this layer for the lower-dimensional representation.  Modify your VAE implementation above by ignoring the log-variances, and simply returning the predicted mean in the reparameterization step.  This corresponds to setting the variance for the latent Gaussian to zero, and the resulting model then *almost* corresponds to non-linear PCA.
 The final adjustment to obtain nonlinear PCA is to set the loss function to only use the reconstruction loss, and not to also penalize deviations of the variational family from the prior.
 
-a. Compare the sampling output for nonlinear PCA and the VAE, and  contrast their suitability for sampling.
+    a. Compare the sampling output for nonlinear PCA and the VAE, and  contrast their suitability for sampling.
 
-b. Contrast nonlinear PCA and the VAE w.r.t. their suitability for compression.
+    b. Contrast nonlinear PCA and the VAE w.r.t. their suitability for compression.
 
 <br />
 
@@ -376,8 +375,6 @@ Efficient sampling vs. efficient inference with normalizing flows:
 
 **Questions**:
 
-TODO: From here on...
-
 1. Figure 2 of [NICE: Non-linear independent components estimation](https://arxiv.org/pdf/1410.8516.pdf) labels the computation graph of a coupling layer using concepts from cryptography.  Explain why this is a suitable metaphor.
 
 2. Consider a VAE where we use a standard isotropic Gaussian as the prior for the latent variable, and where the conditional $$p(x|z) \sim \mathcal{N}(f_\theta(z), I)$$.
@@ -394,15 +391,16 @@ Discuss the relationships between this model and a VAE (and nonlinear PCA, if yo
 4. __Additional__: Implement NICE in PyTorch using affine coupling layers.  Prevent the multiplicative factor in the scaling of each layer being zero by exponentiating the output of a ReLU MLP.  This approach, also used in RealNVP, removes the need for the final scaling layer in NICE.
 
 5. __Additional__: Use your NICE implementation from the previous question (or modify an implementation from online) to allow you to experiment with varying numbers of coupling layers while trying to model some somewhat complicated distributions.
-If you are doing it from scratch yourself, begin by modelling 2-D distributions, like that in the example at the bottom of https://blog.evjang.com/2018/01/nf1.html, or that from https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html, before considering tackling higher-dimensional cases such as MNIST.
+If you are doing it from scratch yourself, begin by modelling 2-D distributions, like that in the example at the bottom of [https://blog.evjang.com/2018/01/nf1.html](https://blog.evjang.com/2018/01/nf1.html), or that from [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html), before considering tackling higher-dimensional cases such as MNIST.
 
 6. Consider Table 1 and Figure 3 (TODO - get and include picture here?) of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770).
 In this setting, we have the (unnormalized) target density, but we do not have samples from the density.
 Thus we can not fit a normalizing flow by optimizing the data log-likelihood w.r.t. the flow parameters.
 Yet Figures 3(b) and 3(c) present results for fitted flows.
 
-a. Can you think of a sensible objective function to fit the parameters of a normalizing flow in this case? (Hint: a Gaussian is a flow with zero transformations - how might you fit a Gaussian to such a distribution?)
-b. __Additional__: Attempt to reproduce Figures 3(a)-(c) by implementing planar flows (see Section 3.3.1 of [Normalizing Flows: Introduction and Ideas](https://arxiv.org/pdf/1908.09257)) and modifying a NICE implementation using your solution to part (a).  TODO: Include a word of warning as in curriculum doc, or remove this exercise?
+    a. Can you think of a sensible objective function to fit the parameters of a normalizing flow in this case? (Hint: a Gaussian is a flow with zero transformations - how might you fit a Gaussian to such a distribution?)
+
+    b. __Additional__: Attempt to reproduce Figures 3(a)-(c) by implementing planar flows (see Section 3.3.1 of [Normalizing Flows: Introduction and Ideas](https://arxiv.org/pdf/1908.09257)) and modifying a NICE implementation using your solution to part (a).  TODO: Include a word of warning as in curriculum doc, or remove this exercise?
 
 <br />
 
@@ -463,17 +461,17 @@ In sampling, we wish to efficiently move from the latent space to the observatio
 Requiring both of these operations be efficient constrains the choice of possible flows - in general, one must sacrifice efficiency in one of these tasks, or have an easily invertible flow (such as in NICE).
 The planar and radial flows used for variational inference in the main paper are not easily invertible, but yet we can efficiently perform the sampling and density estimation that we require.
 
-a. Explain how this is achieved in light of which "observations" we perform density estimation on.
+    a. Explain how this is achieved in light of which "observations" we perform density estimation on.
 
-b. How does this influence the choice of flows we can use for variational inference compared to those where we require general efficient density estimation?
+    b. How does this influence the choice of flows we can use for variational inference compared to those where we require general efficient density estimation?
 
 5. __Additional__: Implement VI with NFs, and experiment with your implementation.
 
 6. [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691) points out that the change to $$z$$ in planar flows can be viewed as a single-hidden-layer multi-layer perceptron (MLP) with a single hidden unit, and say this "does not scale well to a high-dimensional latent space: since information goes through the single bottleneck, a long chain of transformations is required to capture high-dimensional dependencies."  One way to tackle this is to change the MLP to have more hidden units.
 
-a. Give the resulting modified formula for these generalized flows.
+    a. Give the resulting modified formula for these generalized flows.
 
-b. __Additional_: Note that one can no longer use the vanilla form of the matrix determinant lemma to calculate the determinant of this generalized transformation’s Jacobian.  Fortunately, there is a [generalized matrix determinant lemma](https://en.wikipedia.org/wiki/Matrix_determinant__lemma#Generalization) which enables us to calculate the determinant.
+    b. __Additional__: Note that one can no longer use the vanilla form of the matrix determinant lemma to calculate the determinant of this generalized transformation’s Jacobian.  Fortunately, there is a [generalized matrix determinant lemma](https://en.wikipedia.org/wiki/Matrix_determinant__lemma#Generalization) which enables us to calculate the determinant.
 Write down the determinant, and specify the order complexity of calculating it in terms of the number of hidden units.
 (As with planar flows, not all such flows will be invertible.
 [Sylvester normalizing flows](https://arxiv.org/pdf/1803.05649.pdf) arise as special forms of the above transformations where one obtains invertibility based on specific assumed forms for the weight matrices in the MLP - note that these forms also need to be maintained throughout training.)

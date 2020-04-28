@@ -10,18 +10,23 @@ Terminated with quote.
 Condensed version of Why section below?"
 feedback: true
 ---
-TODO: "Written jointly  by [blank]"?
-TODO: Thanks: Avital, Rianne, Laurent, people sitting in on sessions, students.
-TODO: Correct date in metadata and filename
-TODO: Construct dependency diagram, figure out click-to-navigate
-TODO: Expand readings below with my comments from my weekly curricula doc? (Or what?)  Also, should I include supporting material? (Omitting for now)
-TODO: Revise the readings that didn't work so well?
-TODO: Incorporate solutions somehow. (Colabs?) (Remove additional examples we don't have solutions for?)
-TODO: Motivate the EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks? Anything else?)
-TODO: Decide on handling for regular questions/exercises vs stuff marked "Additional".
-TODO: Work through comments on curriculum document for any other changes.
 
+TODOs:
 
+- TODOs elsewhere in document
+- should I include supporting material? (Omitting for now); currently including only additional material.
+- Incorporate solutions somehow. (Colabs?) (Remove additional examples we don't have solutions for?) (Also note questions in solutions which are no longer in exercises)
+- Revise the readings that didn't work so well? Mainly Tzikas?
+- Do I need to specify prerequisites explicitly?
+- Motivate the (variational) EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks? Anything else?)  But, when it comes down to it, VAEs are solving a similar problem to Variational EM, but with a different optimization routine, rather than a fully Bayesian inference.
+- Decide on handling for regular questions/exercises vs stuff marked "Additional".
+- Providing recordings of sessions, scribe notes?  How much cleanup?
+- Keeping Slack open, create channel for each week?
+- Final write-up Thanks: Avital, Rianne, Laurent, people sitting in on sessions, students, ....
+- "Written jointly by [blank]"?
+- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names).
+- to get the "hint" and "solution" expanding sections to work correctly within bulleted points you need to use the exact correct amount of whitespace (which is maybe 3, or 1, I forget). Put hints into the hint environment.
+- Correct date in metadata and filename
 
 <div class="deps-graph">
 <iframe class="deps" src="/assets/vi-with-nfs.svg" width="200"></iframe>
@@ -84,12 +89,11 @@ Important concepts in probability and information theory:
 - David Blei, [The Exponential Family](http://www.cs.columbia.edu/~blei/fogm/2015F/notes/exponential-family.pdf), sections titled "Definition" and "Conjugacy" (until Formula (49), before the subsection "Posterior predictive distribution")
 
 Introduction to approximate inference:
-- Dimitris G. Tzikas, Aristidis C. Likas, and Nikolaos P. Galatsanos, [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf), until the end of the section titled "An alternative view of the EM algorithm". TODO: This is not about VI, but reviews Bayesian inference, presents BNs and EM.
+- Dimitris G. Tzikas, Aristidis C. Likas, and Nikolaos P. Galatsanos, [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf), until the end of the section titled "An alternative view of the EM algorithm".
 - David MacKay, [Information Theory, Inference, and Learning Algorithms](http://www.inference.org.uk/itprnn/book.pdf), Section 29.1 (excluding the portion on uniform sampling).
 
 **Additional Reading**:
 
-TODO: Should this be for going further, or supporting material?
 
 1. The rest of David Blei, [The Exponential Family](http://www.cs.columbia.edu/~blei/fogm/2015F/notes/exponential-family.pdf)
 2. More of Chapters 29 and 30 of David MacKay, [Information Theory, Inference, and Learning Algorithms](http://www.inference.org.uk/itprnn/book.pdf)
@@ -108,9 +112,14 @@ TODO: Should this be for going further, or supporting material?
 
     c. Suppose we model our uncertainty about the mean with $$\mu \sim \mathcal{N}(0, \sigma_{\mu}^2 = 1)$$. Derive the posterior distribution by making use of conjugacy, and use this to obtain the MAP estimate of $$\mu$$.
 
-4. Prove that the KL divergence $$\mathrm{KL}(q \mid p)$$ is nonnegative. Approach: apply the bound $$\log t \leq t-1$$ to $$t=p(x)/q(x)$$.  TODO: Convert this to a hint?
+4. Prove that the KL divergence $$\mathrm{KL}(q \mid p)$$ is nonnegative.
+    <details><summary>Hint</summary>
+    Apply the bound $$\log t \leq t-1$$ to $$t=p(x)/q(x)$$.
+    </details>
 
-5. *KL divergence for simple normal distributions*. Show that $$\text{KL}\left(\mathcal{N}\left((\mu_1, \ldots, \mu_k)^\mathsf{T}, \operatorname{diag} (\sigma_1^2, \ldots, \sigma_k^2)\right) \parallel \mathcal{N}\left(\mathbf{0}, \mathbf{I}\right)\right)$$ equals $${1 \over 2} \sum_{i=1}^k (\sigma_i^2 + \mu_i^2 - \ln(\sigma_i^2) - 1)$$.  TODO: Formatting?
+5. *KL divergence for simple normal distributions*. Show that
+
+    $$\text{KL}\left(\mathcal{N}\left((\mu_1, \ldots, \mu_k)^\mathsf{T}, \operatorname{diag} (\sigma_1^2, \ldots, \sigma_k^2)\right) \parallel \mathcal{N}\left(\mathbf{0}, \mathbf{I}\right)\right) = {1 \over 2} \sum_{i=1}^k (\sigma_i^2 + \mu_i^2 - \ln(\sigma_i^2) - 1) \enspace .$$
 
 6. Derive Equation (7) in [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf).
 
@@ -162,7 +171,7 @@ Variational inference:
 
 # 3 Doubly stochastic estimation: VI by Monte-Carlo mini-batch gradient estimation
 
-**Synopsis**: This week we consider two techniques used to address *major limitations on the applicability and scalability of CAVI*.
+**Synopsis**: In this part we consider two techniques used to address *major limitations on the applicability and scalability of CAVI*.
 The first challenge (to scalability) is that each global parameter update *requires a full pass* through the complete data set, which is problematic for very large data sets.
 This is resolved through stochastic variational inference, which uses the same ideas from stochastic approximation that enable the use of *stochastic gradient descent* in training other machine learning models.
 The second challenge (to applicability) is that the updates by CAVI need to be *determined manually* for each model.
@@ -213,7 +222,7 @@ Section 5 is optional, but note the dramatic effect of the variance reduction te
 
 **Questions**:
 
-1. __Additional__: Extend last week’s CAVI implementation to VI using natural gradient descent, and consider the impact of the minibatch size on the convergence time in terms of number of examples seen.  Use the autodifferentiation capability of PyTorch to perform stochastic gradient descent on the ELBO (i.e. not following the natural gradient), and compare the performance of this to the previous approach.
+1. __Additional__: Extend your CAVI implementation from the previous section to VI using natural gradient descent, and consider the impact of the minibatch size on the convergence time in terms of number of examples seen.  Use the autodifferentiation capability of PyTorch to perform stochastic gradient descent on the ELBO (i.e. not following the natural gradient), and compare the performance of this to the previous approach.
 
 2. *The score function*. For a parameterized distribution $$p(x; \theta)$$, the score is defined as the gradient (w.r.t. $$\theta$$) of the log-density, and the covariance matrix of the score under this distribution is called the Fisher information matrix.
 
@@ -225,15 +234,19 @@ Section 5 is optional, but note the dramatic effect of the variance reduction te
 
 4. *Fisher for exponential families*. Given that $$F_\eta = - \mathbb{E}_{x} \nabla_\eta^2 \log p(x \mid \eta)$$ (the matrix form of the representation in the previous exercise), show that the Fisher equals the Hessian of the log normalizer (\nabla_\eta^2 a(\eta)) when $$p(x \mid \eta)$$ is from an exponential family.
 
-5. *Score function gradient estimation*. Consider the problem of using gradient descent to find the mean of a unit variance Gaussian with minimum second moment $$\mathbb{E}(X^2)$$.
+5. *Score function gradient estimation, a.k.a. the log-derivative trick*. Consider the problem of using gradient descent to find the mean of a unit variance Gaussian with minimum second moment $$\mathbb{E}(X^2)$$.
 We thus seek the value of $$\nabla_{\mu} \mathbb{E}_{N(\mu,1)}(X^2)$$ at a candidate value $$\mu_0$$.
-Exchange the order of differentiation and integration, and then use the score function to obtain an expression for this derivative that is an expectation amenable to Monte Carlo estimation. (TODO: Convert this to a hint?)
+Exchange the order of differentiation and integration, and then use the score function to obtain an expression for this derivative that is an expectation amenable to Monte Carlo estimation.
 Note how the derivation of the ELBO gradient for BBVI used this approach, along with the expectation of the score being zero.
+(This idea is essentially the key idea enabling BBVI, so it is probably the most important of this part's exercises to get your head around.)
 
 6. *Incremental SVI*. Suppose you have already fit a model to a huge data set with doubly stochastic VI, and then receive new data.  How would you go about obtaining the estimated posterior over the latent variables for the new data?  How would you go about updating the model to incorporate the new data?
 
-7. *Law of total variance*. Derive the formula in Equation 5 on page 10 of [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red_Basic.pdf). (TODO: Convert to hint?)  Begin by writing the variance as a difference in the traditional way, and applying the law of total expectation (the formula above Equation 5) to each term.  
-From there you should be able to manipulate expectations and variances w.r.t. $$Z$$ and $$X|Z$$ to get the required expression - i.e. there should be no need to write these out as integrals.
+7. *Law of total variance*. Derive the formula in Equation 5 on page 10 of [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red_Basic.pdf).
+    <details><summary>Hint</summary>
+    Begin by writing the variance as a difference in the traditional way, and applying the law of total expectation (the formula above Equation 5) to each term.  
+    From there you should be able to manipulate expectations and variances w.r.t. $$Z$$ and $$X|Z$$ to get the required expression - i.e. there should be no need to write these out as integrals.
+    </details>
 
 8. *Efficacy of conditional Monte Carlo*. Answer Exercise 2 on page 11 of [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red_Basic.pdf)
 
@@ -248,7 +261,7 @@ Note that $$\beta$$ appears in all terms of the log-joint, while any specific $$
 
 # 4 Inference networks and amortized VI
 
-**Synopsis**: This week presents developments in VI allowing *further scalability* as well as use in *online settings*.
+**Synopsis**: This part presents developments in VI allowing *further scalability* as well as use in *online settings*.
 Traditional VI analyses all the data together, and individually optimizes the latent variables corresponding to each observation.
 This means that *new observations require refitting* the entire model.
 A way to bypass this is to model the transformation from an observation to its posterior distribution using an *inference network* or recognition model.
@@ -286,6 +299,7 @@ The first two papers listed below were independent proposals of the variational 
 1. Danilo J. Rezende, Shakir Mohamed, and Daan Wierstra, [Stochastic Backpropagation and Approximate Inference in Deep Generative Models](https://arxiv.org/pdf/1401.4082.pdf).
 2. Diederik Kingma and Max Welling, [Auto-Encoding variational Bayes](https://arxiv.org/abs/1312.6114).
 3. Shakir Mohamed, Mihaela Rosca, Michael Figurnov, and Andriy Mnih, [Monte Carlo Gradient Estimation in Machine Learning](https://arxiv.org/pdf/1906.10652). Studies various approaches to estimating gradients of function expectations with respect to parameters defining the distribution with Monte Carlo methods.  Properties of the score function and pathwise (i.e. reparameterization trick) gradient estimators are discussed in considerable detail.
+4. James Allingham, Deep Learning Indaba Practical 3b on [Deep Generative Models](https://colab.research.google.com/drive/1QYej56ctstejvRx6uK9qTTlF44NXzqH1#forceEdit=true&offline=true&sandboxMode=true) - Colab notebook introducing VAEs and Generative Adversarial Networks (GANs).
 
 **Questions**:
 
@@ -311,13 +325,11 @@ This may make the variational posterior less accurate. Why is it nevertheless a 
 
     Finally, note that end-to-end optimization of the ELBO across the encoder and decoder essentially corresponds to interleaving stochastic gradient descent w.r.t. the two above steps.
 
-5. *VAE implementation and exploration*. (TODO: Modify this to make resources available another way?) Complete the VAE implementation in vae.py. (This is a stripped-down version of a PyTorch VAE example.) (TODO: Find original and link it?)
+5. *VAE implementation and exploration*. Complete the VAE implementation in [``vae.py``](/assets/vae.py).
 
     a. Note how the provided code uses the VAE to sample new images.
 
-    b. Can you suggest a good way to sample images of a specific digit? (Note: don’t spend a lot of time on this!) (TODO: Consider deleting this?)
-
-    c. __Additional__: Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set?
+    b. __Additional__: Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set?
 
 6. __Additional__: *Relationship to nonlinear PCA*. An earlier approach to constructing low-dimensional representations (for compression or further analysis) was nonlinear PCA.  This used a low-dimensional bottleneck layer in an autoencoder model, and then extracted the representation at this layer for the lower-dimensional representation.  Modify your VAE implementation above by ignoring the log-variances, and simply returning the predicted mean in the reparameterization step.  This corresponds to setting the variance for the latent Gaussian to zero, and the resulting model then *almost* corresponds to non-linear PCA.
 The final adjustment to obtain nonlinear PCA is to set the loss function to only use the reconstruction loss, and not to also penalize deviations of the variational family from the prior.
@@ -331,13 +343,13 @@ The final adjustment to obtain nonlinear PCA is to set the loss function to only
 # 5 Normalizing Flows
 
 **Synopsis**: There are various approaches to probabilistic modelling of complex phenomena.
-In the previous weeks, we have considered *variational inference for directed graphical models with latent variables*.
+In the previous parts, we have considered *variational inference for directed graphical models with latent variables*.
 These models postulate meaningful latent variables and are amenable to ancestral sampling once we have fit the required conditional distributions, but a challenge for this approach is that the posterior distribution of latent variables may exhibit complex dependencies, which may not be well modeled by the variational family.
-This week, we consider a different approach to probabilistic modelling which dispenses with the latent variables, and directly models the *data density as a sequence of parameterized invertible transformations* starting from a (simple) base density.
+In this part, we consider a different approach to probabilistic modelling which dispenses with the latent variables, and directly models the *data density as a sequence of parameterized invertible transformations* starting from a (simple) base density.
 Such a sequence of transformations (from a complicated to a simple density) is called a *normalizing flow*.
 A key aspect of this approach is to ensure that applying the transformations and obtaining their gradients are *computationally efficient* to allow efficient training and sampling.
 Thus, normalizing flows in the machine learning literature usually refers to an approach to parameterizing a fairly complex distribution as a sequential transformation of a simple one with some attractive computation properties.
-In the setting we consider this week, a *single* flow is fitted directly to the (often high-dimensional) data.
+In the setting we consider here, a *single* flow is fitted directly to the (often high-dimensional) data.
 The next section will combine these modelling approaches by using normalizing flows to refine the posteriors in amortized VI.
 
 **Objectives**:
@@ -373,6 +385,10 @@ Efficient sampling vs. efficient inference with normalizing flows:
 
 4. Laurent Dinh, Jascha Sohl-Dickstein, and Samy Bengio, [Density Estimation using Real NVP](https://arxiv.org/pdf/1605.08803.pdf).
 
+5. Gustavo Deco and Wilfried Brauer, [Nonlinear higher-order statistical decorrelation by volume-conserving neural architectures](https://www.sciencedirect.com/science/article/pii/089360809400108X). this is an early forerunner of normalizing flows, with proposed flows that seems to match (volume-preserving) autoregressive flows.
+
+6. George Ho, [Autoregressive Models in Deep Learning - A Brief Survey](https://eigenfoo.xyz/deep-autoregressive-models) - an introduction to a variety of deep autoregressive networks.
+
 **Questions**:
 
 1. Figure 2 of [NICE: Non-linear independent components estimation](https://arxiv.org/pdf/1410.8516.pdf) labels the computation graph of a coupling layer using concepts from cryptography.  Explain why this is a suitable metaphor.
@@ -393,7 +409,7 @@ Discuss the relationships between this model and a VAE (and nonlinear PCA, if yo
 5. __Additional__: Use your NICE implementation from the previous question (or modify an implementation from online) to allow you to experiment with varying numbers of coupling layers while trying to model some somewhat complicated distributions.
 If you are doing it from scratch yourself, begin by modelling 2-D distributions, like that in the example at the bottom of [https://blog.evjang.com/2018/01/nf1.html](https://blog.evjang.com/2018/01/nf1.html), or that from [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html), before considering tackling higher-dimensional cases such as MNIST.
 
-6. Consider Table 1 and Figure 3 (TODO - get and include picture here?) of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770).
+6. Consider Table 1 and Figure 3 of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770).
 In this setting, we have the (unnormalized) target density, but we do not have samples from the density.
 Thus we can not fit a normalizing flow by optimizing the data log-likelihood w.r.t. the flow parameters.
 Yet Figures 3(b) and 3(c) present results for fitted flows.
@@ -409,8 +425,8 @@ Yet Figures 3(b) and 3(c) present results for fitted flows.
 **Synopsis**: We now turn to the main paper considered in this curriculum.
 The techniques covered so far allow training *combined generative and inference networks* by stochastic backpropagation.
 However, the posterior family was generally fairly simple to ensure scalable inference.
-This paper leverages the normalizing flows considered last week to transform the simple distributions whose parameters were originally output by the inference network to much more complex posterior distributions.
-As before, computational efficiency of the normalizing flow is essential, but due to the way in which the flows are deployed in the VI setting, the requirements for efficiency differ somewhat from those for the normalizing flows considered last week.
+This paper leverages the normalizing flows considered in the previous section to transform the simple distributions whose parameters were originally output by the inference network to much more complex posterior distributions.
+As before, computational efficiency of the normalizing flow is essential, but due to the way in which the flows are deployed in the VI setting, the requirements for efficiency differ somewhat from those for the normalizing flows considered above.
 
 TODO: Somehow get the key ideas from my Week 6 required reading disclaimer in here somewhere.
 
@@ -434,21 +450,25 @@ Normalizing flows for variational inference:
 
 - Diederik Kingma and Max Welling, [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691), Chapter 3 until the end of Section 3.2 (with Section 3.2.1 optional).
 
-- Danilo Rezende and Shakir Mohamed, [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770). (Only skim Section 3.2 and other portions discussing infinitesimal flows.)
+- Danilo Rezende and Shakir Mohamed, [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770). (Only skim Section 3.2 and other portions discussing infinitesimal flows.) [Note: Equation (20) has a missing $$\beta_t$$ coefficient in the last term of the first line.]
 
 Understanding the inference gap:
 
-- Chris Cremer, Xuechen Li, and David Duvenaud, [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558).
+- Chris Cremer, Xuechen Li, and David Duvenaud, [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558). [Note: In Equation 11, the T's in the first factor in the denominator of the log should be zeros, and there should be a product over t from 1 to T of the ensuing determinants.]
 
 **Additional Reading/Resources**:
 
 1. Ben Lambert, [The intuition behind the Hamiltonian Monte Carlo algorithm](https://www.youtube.com/watch?v=a-wydhEuAm0&list=PLwJRxp3blEvZ8AKMXOy0fc0cqT61GsKCG&index=69).
 2. Diederik Kingma and Max Welling, [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691): The rest of Chapter 3 and Chapter 4 give an overview of further developments using amortized VI for deep generative models beyond the introduction of normalizing flows.
 3. David Duvenaud’s University of Toronto course on [Differentiable Inference and Generative Models](https://www.cs.toronto.edu/~duvenaud/courses/csc2541/index.html).
+4. George Papamakarios, Eric Nalisnick, Danilo Jimenez Rezende, Shakir Mohamed, and Balaji Lakshminarayanan, [Normalizing Flows for Probabilistic Modeling and Inference](https://arxiv.org/pdf/1912.02762.pdf): a review on the use of normalizing flows in modeling and inference, which came out after completion of the reading group this curriculum was based on.
 
 **Questions**:
 
-1. Explain why it is necessary that the flow parameters, and not just the parameters of the base density used in the flow, also be output by the inference network, rather than simply having global parameters for the flow parameters that are optimized.  (Hint: How can the latter case be viewed as a regular VAE without a normalizing flow?) (TODO: convert to a hint)
+1. Explain why it is necessary that the flow parameters, and not just the parameters of the base density used in the flow, also be output by the inference network, rather than simply having global parameters for the flow parameters that are optimized.
+    <details><summary>Hint</summary>
+    How can the latter case be viewed as a regular VAE without a normalizing flow?
+    </details>
 
 2. What is the impact of having the encoder output the flow parameters on using the trained model as a generative model, i.e. for sampling new observations, compared to a VAE.
 
@@ -479,8 +499,6 @@ Write down the determinant, and specify the order complexity of calculating it i
 7. __Additional__: Inequality 12 of [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558) gives the IWAE lower bound on the marginal likelihood.
 Derive this result by using Jensen's inequality after using $$q(z|x)$$ as a proposal distribution for importance sampling from $$p(z|x)$$. (If you are not familiar with importance sampling, the relevant formula (with $$q$$ as proposal for $$p$$) is the second one on [this page](https://towardsdatascience.com/importance-sampling-introduction-e76b2c32e744).)
 
-8. How do you think the authors might have gotten the “true posteriors” in Figure 2 of Chris Cremer et al. “Inference Suboptimality in Variational Autoencoders”? (I don’t know the answer to this!) (TODO: Remove??)
-
-9. Try to explain in your own words the issue of encoder overfitting discussed in Section 5.5.1 [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558), and when you should prefer using flows to increase the complexity of the variational approximation to increasing the expressiveness of the encoder.
+8. Try to explain in your own words the issue of encoder overfitting discussed in Section 5.5.1 [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558), and when you should prefer using flows to increase the complexity of the variational approximation to increasing the expressiveness of the encoder.
 
 <br />

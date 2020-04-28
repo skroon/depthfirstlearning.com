@@ -27,7 +27,7 @@ Finally, thank you to our students Chris Akers, Brian Friedenberg, Sajel Shah, V
 
 As deep networks continue to make progress in a variety of tasks such as vision and language processing, it is important to understand how to properly train very deep neural networks with gradient-based methods.  This paper studies, from a rigorous theoretical perspective, which combinations of network weight initializations and network activation functions can result in deep networks which are trainable. The analysis framework used is applicable to more general network architectures, including deep convolutional neural networks which are state-of-the-art in image classification tasks.  
 
-In this currriculum, we will go through all the background topics necessary to understand the calculations in the paper.  By the end, you will have an understanding of analysis techniques used to study the dynamics of signal propagation in very wide neural networks and be able to perform some simple calculations using random matrix theory.  
+In this curriculum, we will go through all the background topics necessary to understand the calculations in the paper.  By the end, you will have an understanding of analysis techniques used to study the dynamics of signal propagation in very wide neural networks and be able to perform some simple calculations using random matrix theory.  
 
 <br />
 

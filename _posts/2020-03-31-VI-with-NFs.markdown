@@ -13,20 +13,25 @@ feedback: true
 
 TODOs:
 
+- Identify stuff for Suvarna to assist with.
 - TODOs elsewhere in document
 - should I include supporting material? (Omitting for now); currently including only additional material.
 - Incorporate solutions somehow. (Colabs?) (Remove additional examples we don't have solutions for?) (Also note questions in solutions which are no longer in exercises)
 - Revise the readings that didn't work so well? Mainly Tzikas?
+- Suvarna indicated we needed to assume perequisite knowledge on GMMs & EM for the Week 2 reading by Blei et al: Variational inference:A review for statisticians
+- Section 2: See  James’s  suggested  article https://wiseodd.github.io/techblog/2016/12/21/forward-reverse-kl/ for the general explanation of forward vs reverse KL.
 - Do I need to specify prerequisites explicitly?
 - Motivate the (variational) EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks? Anything else?)  But, when it comes down to it, VAEs are solving a similar problem to Variational EM, but with a different optimization routine, rather than a fully Bayesian inference.
 - Decide on handling for regular questions/exercises vs stuff marked "Additional".
-- Providing recordings of sessions, scribe notes?  How much cleanup?
+- Provide access to GDoc with Weekly curricula as well?
+- Providing recordings of sessions, scribe notes?  How much cleanup?  Still need Witold's week. (Jean-Michel indicated he and Scott might be able to do, after liaising with Witold.)  Lood: source of diagram in Section 2 of your scribe notes?  (Credit it) - left some more comments in scribe notes.  James: had a TODO for Scott code, which I have now provided the link to for you.
 - Keeping Slack open, create channel for each week?
-- Final write-up Thanks: Avital, Rianne, Laurent, people sitting in on sessions, students, ....
+- Final write-up Thanks: Avital, Rianne, Laurent, group members, ....
 - "Written jointly by [blank]"?
-- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names).
+- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names). https://drive.google.com/file/d/1huS5VeEdsUvKr06nBnFZFkV3nQWxUr_7/view has the earlier versions.  Allocated to Suvarna.
 - to get the "hint" and "solution" expanding sections to work correctly within bulleted points you need to use the exact correct amount of whitespace (which is maybe 3, or 1, I forget). Put hints into the hint environment.
 - Correct date in metadata and filename
+- Pull in latest master DFL changes to website
 
 <div class="deps-graph">
 <iframe class="deps" src="/assets/vi-with-nfs.svg" width="200"></iframe>

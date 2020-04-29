@@ -4,32 +4,52 @@ title:  "Variational Inference with Normalizing Flows"
 date:   2020-03-31 6:00:00 -0400
 categories: neural-nets,variational-inference,normalizing-flows
 authors: ['kroon'] 
-blurb: "TODO
-Can be multiline.
-Terminated with quote.
-Condensed version of Why section below?"
+blurb: "Large-scale neural models using amortized variational inference, such as the variational auto-encoder, typically rely on simple variational families.
+On the other hand, normalizing flows provide a bridge between simple base distributions and more complex distributions of interest.
+The paper this guide targets shows how to use normalizing flows to enrich the variational family for amortized variational inference."
 feedback: true
 ---
 
-TODOs:
+Firstly, a huge thank-you to the participants in the study group that led to this guide, for their enthusiastic participation, interesting perspectives and insights, and useful feedback and contributions: Bharati Srinivasan, Lood van Niekerk, Suvarna Kadam, James Allingham, Jean Michel Sarr, Scott Cameron, and Witold Szejgis.
 
-- Identify stuff for Suvarna to assist with.
-- TODOs elsewhere in document
-- should I include supporting material? (Omitting for now); currently including only additional material.
-- Incorporate solutions somehow. (Colabs?) (Remove additional examples we don't have solutions for?) (Also note questions in solutions which are no longer in exercises)
+Thank you too to the Depth First Learning team for bringing me on board, and especially to Avital Oliver for helping get things started, keeping them on the rails, organizing guests for study group sessions, and gently but insistently nudging me to wrap things up after the study group had concluded.
+
+Finally, thank you to Laurent Dinh and Rianne van der Berg for sitting in on our discussion sessions and sharing their inputs, and to them, Avital, and the study group members for their feedback on various drafts of this material over the past months.
+
+__TODOs__:
+
+- Discuss with Avital
+    - should I include supporting material? (Omitting for now); currently including only additional material.
+    - Incorporate solutions somehow - colabs? where should they go? separate one for each week (as currently). (Remove any additional exercises we don't have solutions for; also remove solutions for questions which are no longer in exercises.)
+    - Do I need to specify prerequisites explicitly?  Add as a separate doc like resurrecting sigmoid?
+    - suggestions for improvements
+    - Provide access to scribe notes (how much cleanup/uniformity), zoom sessions, GDoc with Weekly curricula as well?  What should I do about extra comments there, but not in curriculum
+    - What exercises to include (what scope) - gut feeling is that more is better, if solutions are provided?
+    - Keeping Slack open, create channel for each week/topics? (Could leverage repeated topics like GANs, VAEs, KL divergence, etc.)
+    - "Written jointly by [blank]"?  How to get authorname to appear?
+    - where/if to mention Jane Street?
+
+- Prepare and link to solutions:
+    - All weeks: may need to make/provide copies for DFL, so not on my own Google account
+    - All weeks: need to update numbering from alphetical to numbered to match website
+    - All weeks: Indicate implementation exercises in some way in post
+    - Week 1: https://colab.research.google.com/drive/1EGEREIdV0RxF27KKnqC2HXDu3rdxdB7A - done
+    - Week 2: https://colab.research.google.com/drive/1WJSnWguTRCHlJm3TFdpz5bJ9YhBVx-Xu - Q7 still needs a solution added, Q8 code needs to be neatened up, and we should resolve comments, may also need an extra part for the Additional question.
+    - Week 3: https://colab.research.google.com/drive/1XKk95WUSzWXYd9idD2ei6A3K3EdnMVj7 - Q1 still needs an implementation, For Q9, there are implementations by Scott/Jean-Michel to integrate; don't think we have a solution to Q11 - remove, or implement?
+    - Week 4: https://colab.research.google.com/drive/1uX39PbxiMHChty8gSF5IVw_c72AhpR4y - need to remove e(ii), not in actual curriculum.  e(iii) solution not yet done. Part (f) could be adjusted to run in the colab, preferably, to show solutions to (i) and (ii).
+    - Week 5: https://colab.research.google.com/drive/1ndyYNmPfAVQlBslmV7X0HPMTBZr1YCoN .  Need to incorporate Scott's colab at https://colab.research.google.com/drive/15rsnLO43noepe0hu1ioCMjql4DLa2Xf3#scrollTo=n-5CLgGMP8tN for part d and first part of part e. (Remove stuff in part e about the pull request, and perhaps limit ourself to make_moons)
+    - Week 6: https://colab.research.google.com/drive/1CiZcHcshztxqVgxx1qk_e_1oN2fnnUNg .  Not sure about our solution to (b).  Still need an implementation for parts (c) and (e). 
+
+- Outstanding scribe notes:
+    - Still need Witold's scribe notes for week 4. (Jean-Michel indicated a while ago he and Scott might be able to help Witold finish this.)
+    - Lood scribe notes: source of diagram in Section 2 of your scribe notes?  (Credit it) - left some more comments in scribe notes.
+    - James scribe notes: had a TODO for Scott code, which I have now provided the link to for you.  Do you want to add/change anything there?
+    - General clean-up and editing, making uniform (out of scope?)
+
+- Identify stuff for Suvarna to assist with as needed.
+- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names). https://drive.google.com/file/d/1huS5VeEdsUvKr06nBnFZFkV3nQWxUr_7/view has the earlier versions.  Allocated to Suvarna
 - Revise the readings that didn't work so well? Mainly Tzikas?
-- Suvarna indicated we needed to assume perequisite knowledge on GMMs & EM for the Week 2 reading by Blei et al: Variational inference:A review for statisticians
-- Section 2: See  James’s  suggested  article https://wiseodd.github.io/techblog/2016/12/21/forward-reverse-kl/ for the general explanation of forward vs reverse KL.
-- Do I need to specify prerequisites explicitly?
-- Motivate the (variational) EM stuff(?), perhaps consider removing it entirely... (all I'd need otherwise is a different intro to basic of Bayes Networks? Anything else?)  But, when it comes down to it, VAEs are solving a similar problem to Variational EM, but with a different optimization routine, rather than a fully Bayesian inference.
-- Decide on handling for regular questions/exercises vs stuff marked "Additional".
-- Provide access to GDoc with Weekly curricula as well?
-- Providing recordings of sessions, scribe notes?  How much cleanup?  Still need Witold's week. (Jean-Michel indicated he and Scott might be able to do, after liaising with Witold.)  Lood: source of diagram in Section 2 of your scribe notes?  (Credit it) - left some more comments in scribe notes.  James: had a TODO for Scott code, which I have now provided the link to for you.
-- Keeping Slack open, create channel for each week?
-- Final write-up Thanks: Avital, Rianne, Laurent, group members, ....
-- "Written jointly by [blank]"?
-- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names). https://drive.google.com/file/d/1huS5VeEdsUvKr06nBnFZFkV3nQWxUr_7/view has the earlier versions.  Allocated to Suvarna.
-- to get the "hint" and "solution" expanding sections to work correctly within bulleted points you need to use the exact correct amount of whitespace (which is maybe 3, or 1, I forget). Put hints into the hint environment.
+- Update thanks above as appropriate
 - Correct date in metadata and filename
 - Pull in latest master DFL changes to website
 
@@ -46,7 +66,7 @@ Large-scale neural architectures making use of variational inference have been e
 A complementary objective to efficient variational inference in a given variational family, is maintaining efficiency while allowing a richer variational family of approximate posteriors.
 Normalizing flows are an elegant approach to representing complex densities as transformations from a simple density.
 
-This curriculum develops key concepts in inference and variational inference, leading up to the autoencoder, and considers the relevant computational requirements for tackling certain tasks with normalizing flows.  The key focus of the curriculum is the paper [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770), which uses normalizing flows to enrich the representation used for the approximate posterior in a variational autoencoder.
+This curriculum develops key concepts in inference and variational inference, leading up to the variational autoencoder, and considers the relevant computational requirements for tackling certain tasks with normalizing flows.  While it provides good background for studying a variety of papers on VI and generative modeling, the key focus of the curriculum is the paper [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770), which uses normalizing flows to enrich the representation used for the approximate posterior in amortized variational inference.
 
 <br />
 
@@ -170,7 +190,7 @@ Variational inference:
 5. What do you think is the biggest challenge to scalability of CAVI?
 6. What is the benefit of your model having complete conditionals in the exponential family if you would like to apply CAVI? 
 7. __Additional__: Calculate the rest of the terms in the ELBO of Equation (21) in [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf), and verify the CAVI update equations by setting the components of the ELBO gradient to zero.
-8. __If you have the time_: Implement CAVI for the example in Sections 2-3 of [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf) using PyTorch or a similar package. Think about how to visualize the behaviour of the algorithm and/or its results.  If you have done the previous exercise, use a threshold on the relative change in the ELBO to control when to terminate; otherwise you can monitor changes in the variational parameters, or the log-predictive density on a hold-out set. (_Additional__: If you have implemented the ELBO, compare the behaviour of CAVI to directly optimizing the ELBO by gradient descent.)
+8. __Implementation__: Implement CAVI for the example in Sections 2-3 of [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf) using PyTorch or a similar package. Think about how to visualize the behaviour of the algorithm and/or its results.  If you have done the previous exercise, use a threshold on the relative change in the ELBO to control when to terminate; otherwise you can monitor changes in the variational parameters, or the log-predictive density on a hold-out set. (_Additional__: If you have implemented the ELBO, compare the behaviour of CAVI to directly optimizing the ELBO by gradient descent.)
 
 <br />
 
@@ -418,10 +438,10 @@ If you are doing it from scratch yourself, begin by modelling 2-D distributions,
 In this setting, we have the (unnormalized) target density, but we do not have samples from the density.
 Thus we can not fit a normalizing flow by optimizing the data log-likelihood w.r.t. the flow parameters.
 Yet Figures 3(b) and 3(c) present results for fitted flows.
-
-    a. Can you think of a sensible objective function to fit the parameters of a normalizing flow in this case? (Hint: a Gaussian is a flow with zero transformations - how might you fit a Gaussian to such a distribution?)
-
-    b. __Additional__: Attempt to reproduce Figures 3(a)-(c) by implementing planar flows (see Section 3.3.1 of [Normalizing Flows: Introduction and Ideas](https://arxiv.org/pdf/1908.09257)) and modifying a NICE implementation using your solution to part (a).  TODO: Include a word of warning as in curriculum doc, or remove this exercise?
+Can you think of a sensible objective function to fit the parameters of a normalizing flow in this case?
+    <details><summary>Hint</summary>
+    A Gaussian is a flow with zero transformations - how might you fit a Gaussian to such a distribution?
+    </details>
 
 <br />
 
@@ -432,8 +452,6 @@ The techniques covered so far allow training *combined generative and inference 
 However, the posterior family was generally fairly simple to ensure scalable inference.
 This paper leverages the normalizing flows considered in the previous section to transform the simple distributions whose parameters were originally output by the inference network to much more complex posterior distributions.
 As before, computational efficiency of the normalizing flow is essential, but due to the way in which the flows are deployed in the VI setting, the requirements for efficiency differ somewhat from those for the normalizing flows considered above.
-
-TODO: Somehow get the key ideas from my Week 6 required reading disclaimer in here somewhere.
 
 **Objectives**:
 After this part you should:
@@ -446,6 +464,18 @@ After this part you should:
 
 - Normalizing flows for variational inference
 - Understanding the inference gap
+
+**Disclaimer**:
+
+In the reading for this part, there are a few concepts we have not yet covered - if you are not familiar with them, simply skim over the relevant portions - they are not crucial.
+
+What you should know:
+
+* Auxiliary variables (see this section's optional Section 3.2.1 in [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691)) are an alternative technique for adding additional latent variables to a model which allow a richer class of variational posteriors.  It can also be combined with normalizing flows.
+* [Annealed importance sampling](https://arxiv.org/pdf/physics/9803008.pdf) is an approach that can be used to estimating the marginal likelihood/evidence.  The resulting estimate is with high probability a lower bound on the actual marginal likelihood.  One can also use the importance weighted autoencoder (IWAE) objective (which we skipped over in Section 2.6 of [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691)) as an estimate - this is also a lower bound, which becomes tighter as the number of samples used to calculate it increases.
+* [Real NVP](https://arxiv.org/pdf/1605.08803.pdf) is an extension of NICE which incorporates various enhancements which are particularly appropriate for image data.
+* [Hamiltonian Monte Carlo](https://arxiv.org/pdf/1701.02434.pdf) (HMC) is a Markov Chain Monte Carlo approach which uses the mathematics of Hamiltonian dynamics from physics to propose transitions.  Hamiltonian dynamics describe motion in terms of kinetic and potential energy.  For HMC, the potential energy corresponds to the distribution we wish to sample from, while the kinetic energy helps control how the space is explored.  If one views the dynamics in continuous time, the parameters of the potential and kinetic energy will correspond to an infinitesimal flow for the latent variables  and auxiliary latent variables , respectively.
+* [Stochastic differential equations](https://en.wikipedia.org/wiki/Stochastic_differential_equation) can be used to model the evolution of a probability distribution over time.
 
 **Required reading**:
 

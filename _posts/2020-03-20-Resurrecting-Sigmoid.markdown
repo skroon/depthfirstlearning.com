@@ -5,7 +5,7 @@ date:   2020-03-30 6:00:00 -0400
 categories: neural-nets
 authors: ['piyush', 'vinay', 'riley'] 
 blurb: "With the success of deep networks across task ranging from vision to
-language, it is important to understand how to properly trian very deep neural
+language, it is important to understand how to properly train very deep neural
 networks with gradient-based methods. This paper studies, from a rigorous theoretical perspective, which combinations of network weight initializations and network activation functions can result in deep networks which are trainable."
 feedback: true
 ---

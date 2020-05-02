@@ -19,22 +19,20 @@ Finally, thank you to Laurent Dinh and Rianne van der Berg for sitting in on our
 __TODOs__:
 
 - Prepare and link to solutions:
-    - All weeks: need to update numbering from alphetical to numbered to match website (also separate additional/optional exercises (where we don't have solutions)
-    - All weeks: Indicate implementation exercises in some way in post
-    - Week 1: https://colab.research.google.com/drive/1EGEREIdV0RxF27KKnqC2HXDu3rdxdB7A - done
-    - Week 2: https://colab.research.google.com/drive/1WJSnWguTRCHlJm3TFdpz5bJ9YhBVx-Xu - Q7 still needs a solution added, Q8 code needs to be neatened up, and we should resolve comments, may also need an extra part for the Additional question.
-    - Week 3: https://colab.research.google.com/drive/1XKk95WUSzWXYd9idD2ei6A3K3EdnMVj7 - Q1 still needs an implementation, For Q9, there are implementations by Scott/Jean-Michel to integrate; don't think we have a solution to Q11 - remove, or implement?
-    - Week 4: https://colab.research.google.com/drive/1uX39PbxiMHChty8gSF5IVw_c72AhpR4y - need to remove e(ii), not in actual curriculum.  e(iii) solution not yet done. Part (f) could be adjusted to run in the colab, preferably, to show solutions to (i) and (ii).
-    - Week 5: https://colab.research.google.com/drive/1ndyYNmPfAVQlBslmV7X0HPMTBZr1YCoN .  Need to incorporate Scott's colab at https://colab.research.google.com/drive/15rsnLO43noepe0hu1ioCMjql4DLa2Xf3#scrollTo=n-5CLgGMP8tN for part d and first part of part e. (Remove stuff in part e about the pull request, and perhaps limit ourself to make_moons)
-    - Week 6: https://colab.research.google.com/drive/1CiZcHcshztxqVgxx1qk_e_1oN2fnnUNg .  Not sure about our solution to (b).  Still need an implementation for parts (c) and (e). 
+    - All weeks: need to update numbering from alphetical to numbered to match website - done throughout, but put numbers in parentheses in colabs to fix indentation
+    - Week 2: https://colab.research.google.com/drive/1WJSnWguTRCHlJm3TFdpz5bJ9YhBVx-Xu - Q7 still needs a solution added, Q8 code needs to be neatened up; could also do with extra code for the comparison in the last part of the sentence.
+    - Week 3: https://colab.research.google.com/drive/1XKk95WUSzWXYd9idD2ei6A3K3EdnMVj7 - Q1 still needs an implementation, For Q9, there are implementations by Scott/Jean-Michel to integrate; don't think we have a solution to Q11 yet.
+    - Week 4: https://colab.research.google.com/drive/1uX39PbxiMHChty8gSF5IVw_c72AhpR4y - Q5b solution not yet done. Q6 could be adjusted to run in the colab, preferably, to show solutions to (a) and (b).
+    - Week 5: https://colab.research.google.com/drive/1ndyYNmPfAVQlBslmV7X0HPMTBZr1YCoN .  Need to incorporate Scott's colab at https://colab.research.google.com/drive/15rsnLO43noepe0hu1ioCMjql4DLa2Xf3#scrollTo=n-5CLgGMP8tN for Q4 and first part of Q5.
+    - Week 6: https://colab.research.google.com/drive/1CiZcHcshztxqVgxx1qk_e_1oN2fnnUNg .  Not sure about our solution to Q2.  Still need an implementation for Q3 and Q5.  Update Q8 solution based on Rianne feedback during session - see note on GDoc
 
 - Outstanding scribe notes:
     - Still need Witold's scribe notes for week 4. (Jean-Michel indicated a while ago he and Scott might be able to help Witold finish this.)
     - Lood scribe notes: source of diagram in Section 2 of your scribe notes?  (Credit it) - left some more comments in scribe notes.
     - James scribe notes: had a TODO for Scott code, which I have now provided the link to for you.  Do you want to add/change anything there?
-    - General clean-up and editing, making uniform (out of scope?)
 
-- Access to scribe notes (how much cleanup/uniformity), zoom sessions, GDoc with Weekly curricula as well?  What should I do about extra comments there, but not in curriculum.  Include a link.  Consider that some may not wish their zoom sessions to be public - so probably better not to include this.  Also mention what is there (supportming material, further description, prerequisites, etc.  May need to make a more public version, so links to other files work, without exposing the full folder publicly?
+- Resolve mixed hierarchy for additional/implementation vs question names
+- Access to scribe notes (how much cleanup/uniformity), zoom sessions, GDoc with Weekly curricula as well?  What should I do about extra comments there, but not in curriculum.  Include a link.  Consider that some may not wish their zoom sessions to be public - so probably better not to include this.  Also mention what is there (supportming material, further description, prerequisites, etc.  May need to make a more public version, so links to other files work, without exposing the full folder publicly?  Also process any remaining comments
 - Add comment on variational EM reading, motivating why it is relevant?
 - Consider restoring questions I have deleted, even if there are no solutions?
 - Links to code - should not be editable to the public? sandbox versions?
@@ -139,6 +137,7 @@ Introduction to approximate inference:
 
 6. Derive Equation (7) in [The Variational Approximation for Bayesian Inference](http://www.cs.uoi.gr/~arly/papers/SPM08.pdf).
 
+[Solutions](https://colab.research.google.com/drive/1EGEREIdV0RxF27KKnqC2HXDu3rdxdB7A)
 <br />
 
 # 2 Introduction to Variational Inference (VI)
@@ -180,9 +179,10 @@ Variational inference:
 4. *ELBO derivations*. Show that the expression $$\mathbb{E}[\log p(x_i \mid c_i,\mathbf{\mu}; \phi_i, \mathbf{m}, \mathbf{s}^2)]$$ in Equation (21) of [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf) equals $$-\frac{1}{2}[\log 2\pi + \sum_{k=1}^K \phi_{ik}(x_i^2 +m_k^2 + s_k^2 -2x_i m_k)]$$.
 5. What do you think is the biggest challenge to scalability of CAVI?
 6. What is the benefit of your model having complete conditionals in the exponential family if you would like to apply CAVI? 
-7. __Additional__: Calculate the rest of the terms in the ELBO of Equation (21) in [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf), and verify the CAVI update equations by setting the components of the ELBO gradient to zero.
-8. __Implementation__: Implement CAVI for the example in Sections 2-3 of [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf) using PyTorch or a similar package. Think about how to visualize the behaviour of the algorithm and/or its results.  If you have done the previous exercise, use a threshold on the relative change in the ELBO to control when to terminate; otherwise you can monitor changes in the variational parameters, or the log-predictive density on a hold-out set. (_Additional__: If you have implemented the ELBO, compare the behaviour of CAVI to directly optimizing the ELBO by gradient descent.)
+7. Calculate the rest of the terms in the ELBO of Equation (21) in [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf), and verify the CAVI update equations by setting the components of the ELBO gradient to zero. (__Additional__)
+8. Implement CAVI for the example in Sections 2-3 of [Variational Inference: A Review for Statisticians](https://arxiv.org/pdf/1601.00670.pdf) using PyTorch or a similar package. Think about how to visualize the behaviour of the algorithm and/or its results.  If you have done the previous exercise, use a threshold on the relative change in the ELBO to control when to terminate; otherwise you can monitor changes in the variational parameters, or the log-predictive density on a hold-out set. If you have implemented the ELBO, compare the behaviour of CAVI to directly optimizing the ELBO by gradient descent. (__Additional__)
 
+[Solutions](https://colab.research.google.com/drive/1WJSnWguTRCHlJm3TFdpz5bJ9YhBVx-Xu)
 <br />
 
 # 3 Doubly stochastic estimation: VI by Monte-Carlo mini-batch gradient estimation
@@ -238,7 +238,7 @@ Section 5 is optional, but note the dramatic effect of the variance reduction te
 
 **Questions**:
 
-1. __Additional__: Extend your CAVI implementation from the previous section to VI using natural gradient descent, and consider the impact of the minibatch size on the convergence time in terms of number of examples seen.  Use the autodifferentiation capability of PyTorch to perform stochastic gradient descent on the ELBO (i.e. not following the natural gradient), and compare the performance of this to the previous approach.
+1. Extend your CAVI implementation from the previous section to VI using natural gradient descent, and consider the impact of the minibatch size on the convergence time in terms of number of examples seen.  Use the autodifferentiation capability of PyTorch to perform stochastic gradient descent on the ELBO (i.e. not following the natural gradient), and compare the performance of this to the previous approach. (__Additional__)
 
 2. *The score function*. For a parameterized distribution $$p(x; \theta)$$, the score is defined as the gradient (w.r.t. $$\theta$$) of the log-density, and the covariance matrix of the score under this distribution is called the Fisher information matrix.
 
@@ -266,12 +266,14 @@ Note how the derivation of the ELBO gradient for BBVI used this approach, along 
 
 8. *Efficacy of conditional Monte Carlo*. Answer Exercise 2 on page 11 of [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red_Basic.pdf)
 
-9. __Additional__: Implement naive Monte Carlo sampling as well as using the control variate and conditioning methods as per Examples 1 and 9 in [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red__Basic.pdf) to see the variance reduction effect of these strategies.
+9. Implement naive Monte Carlo sampling as well as using the control variate and conditioning methods as per Examples 1 and 9 in [Simulation Efficiency and an Introduction to Variance Reduction Methods](http://www.columbia.edu/~mh2078/MonteCarlo/MCS_Var_Red__Basic.pdf) to see the variance reduction effect of these strategies. (__Additional__)
 
 10. Consider mean-field variational inference of an hierarchical Bayesian model as in Equation (12) of [Black Box Variational Inference](https://arxiv.org/pdf/1401.0118.pdf).
 Note that $$\beta$$ appears in all terms of the log-joint, while any specific $$z_i$$ only appears in two terms.  What effect does this have when one calculates Rao-Blackwellized estimators of the gradient component for the variational parameters corresponding to $$\beta$$ vs. those for the $$z_i$$ according to Equation (6) of the paper?  How does incorporating stochastic estimation via minibatching/observation sampling make these updates more efficient?  (Focus on the overall effect, equations are not required!)
 
-11. __Additional__: Implement BBVI for the Bayesian Gaussian mixture model, and compare its performance to the previous techniques (both with and without variance reduction techniques).
+11. Implement BBVI for the Bayesian Gaussian mixture model, and compare its performance to the previous techniques (both with and without variance reduction techniques). (__Additional__)
+
+[Solutions](https://colab.research.google.com/drive/1XKk95WUSzWXYd9idD2ei6A3K3EdnMVj7)
 
 <br />
 
@@ -332,12 +334,12 @@ Implement both estimators (the one from the previous section and the one from th
 In the VAE, the ELBO is used to jointly optimize the parameters of the encoder and the decoder.
 Consider the decomposition of the marginal likelihood in Equation 2.8 of [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691).
  
-    a. Suppose $$\theta$$ is held fixed, and $$\phi$$ is optimized w.r.t. the ELBO.
-This is similar to other VI approaches, except that an inference network is now used for amortized analysis.
-This has no effect on the marginal likelihood of the generative model (which should be expected, since $$\theta$$ is fixed), but makes the variational posterior better.
+    Suppose $$\theta$$ is held fixed, and $$\phi$$ is optimized w.r.t. the ELBO.
+    This is similar to other VI approaches, except that an inference network is now used for amortized analysis.
+    This has no effect on the marginal likelihood of the generative model (which should be expected, since $$\theta$$ is fixed), but makes the variational posterior better.
 
-    b. Suppose now that $$\phi$$ is held fixed, and $$\theta$$  is optimized w.r.t. the ELBO.
-This may make the variational posterior less accurate. Why is it nevertheless a good idea?
+    Suppose now that $$\phi$$ is held fixed, and $$\theta$$  is optimized w.r.t. the ELBO.
+    This may make the variational posterior less accurate. Why is it nevertheless a good idea?
 
     Finally, note that end-to-end optimization of the ELBO across the encoder and decoder essentially corresponds to interleaving stochastic gradient descent w.r.t. the two above steps.
 
@@ -345,14 +347,15 @@ This may make the variational posterior less accurate. Why is it nevertheless a 
 
     a. Note how the provided code uses the VAE to sample new images.
 
-    b. __Additional__: Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set?
+    b. Plot the variational parameters (means and log-variances) for a number of MNIST digits.  Do they seem to have some kind of information about the classes present in the data set? (__Additional__)
 
-6. __Additional__: *Relationship to nonlinear PCA*. An earlier approach to constructing low-dimensional representations (for compression or further analysis) was nonlinear PCA.  This used a low-dimensional bottleneck layer in an autoencoder model, and then extracted the representation at this layer for the lower-dimensional representation.  Modify your VAE implementation above by ignoring the log-variances, and simply returning the predicted mean in the reparameterization step.  This corresponds to setting the variance for the latent Gaussian to zero, and the resulting model then *almost* corresponds to non-linear PCA.
-The final adjustment to obtain nonlinear PCA is to set the loss function to only use the reconstruction loss, and not to also penalize deviations of the variational family from the prior.
+6. *Relationship to nonlinear PCA*. An earlier approach to constructing low-dimensional representations (for compression or further analysis) was nonlinear PCA.  This used a low-dimensional bottleneck layer in an autoencoder model, and then extracted the representation at this layer for the lower-dimensional representation.  Modify your VAE implementation above by ignoring the log-variances, and simply returning the predicted mean in the reparameterization step.  This corresponds to setting the variance for the latent Gaussian to zero, and the resulting model then *almost* corresponds to non-linear PCA. The final adjustment to obtain nonlinear PCA is to set the loss function to only use the reconstruction loss, and not to also penalize deviations of the variational family from the prior. (__Additional__)
 
     a. Compare the sampling output for nonlinear PCA and the VAE, and  contrast their suitability for sampling.
 
     b. Contrast nonlinear PCA and the VAE w.r.t. their suitability for compression.
+
+[Solutions](https://colab.research.google.com/drive/1uX39PbxiMHChty8gSF5IVw_c72AhpR4y)
 
 <br />
 
@@ -420,10 +423,9 @@ Considering that in the above, the input data points to the normalizing flow are
 Consider a model using this normalizing flow as an encoder, and the inverse of the flow as a decoder.
 Discuss the relationships between this model and a VAE (and nonlinear PCA, if you tackled Exercise 6 in the previous section).
 
-4. __Additional__: Implement NICE in PyTorch using affine coupling layers.  Prevent the multiplicative factor in the scaling of each layer being zero by exponentiating the output of a ReLU MLP.  This approach, also used in RealNVP, removes the need for the final scaling layer in NICE.
+4. Implement NICE in PyTorch using affine coupling layers.  Prevent the multiplicative factor in the scaling of each layer being zero by exponentiating the output of a ReLU MLP.  This approach, also used in RealNVP, removes the need for the final scaling layer in NICE. (__Additional__)
 
-5. __Additional__: Use your NICE implementation from the previous question (or modify an implementation from online) to allow you to experiment with varying numbers of coupling layers while trying to model some somewhat complicated distributions.
-If you are doing it from scratch yourself, begin by modelling 2-D distributions, like that in the example at the bottom of [https://blog.evjang.com/2018/01/nf1.html](https://blog.evjang.com/2018/01/nf1.html), or that from [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html), before considering tackling higher-dimensional cases such as MNIST.
+5. Use your NICE implementation from the previous question (or modify an implementation from online) to allow you to experiment with varying numbers of coupling layers while trying to model some somewhat complicated distributions. If you are doing it from scratch yourself, begin by modelling 2-D distributions, like that in the example at the bottom of [https://blog.evjang.com/2018/01/nf1.html](https://blog.evjang.com/2018/01/nf1.html), or that from [https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html), before considering tackling higher-dimensional cases such as MNIST. (__Additional__)
 
 6. Consider Table 1 and Figure 3 of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770).
 In this setting, we have the (unnormalized) target density, but we do not have samples from the density.
@@ -433,6 +435,8 @@ Can you think of a sensible objective function to fit the parameters of a normal
     <details><summary>Hint</summary>
     A Gaussian is a flow with zero transformations - how might you fit a Gaussian to such a distribution?
     </details>
+
+[Solutions](https://colab.research.google.com/drive/1ndyYNmPfAVQlBslmV7X0HPMTBZr1YCoN)
 
 <br />
 
@@ -498,7 +502,7 @@ Understanding the inference gap:
 
 2. What is the impact of having the encoder output the flow parameters on using the trained model as a generative model, i.e. for sampling new observations, compared to a VAE.
 
-3. __Additional__: Reproduce figures similar to those in Figure 1 of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770) with your own implementation.
+3. Reproduce figures similar to those in Figure 1 of [Variational inference with normalizing flows](https://arxiv.org/pdf/1505.05770) with your own implementation. (__Additional__)
 
 4. Two key aims of general generative models are density estimation and sampling.
 In normalizing flow models for density estimation, we need to evaluate $$p(x)$$ for any potential choice of $$x$$.
@@ -511,20 +515,22 @@ The planar and radial flows used for variational inference in the main paper are
 
     b. How does this influence the choice of flows we can use for variational inference compared to those where we require general efficient density estimation?
 
-5. __Additional__: Implement VI with NFs, and experiment with your implementation.
+5. Implement VI with NFs, and experiment with your implementation. (__Additional__)
 
 6. [An Introduction to Variational Autoencoders](https://arxiv.org/pdf/1906.02691) points out that the change to $$z$$ in planar flows can be viewed as a single-hidden-layer multi-layer perceptron (MLP) with a single hidden unit, and say this "does not scale well to a high-dimensional latent space: since information goes through the single bottleneck, a long chain of transformations is required to capture high-dimensional dependencies."  One way to tackle this is to change the MLP to have more hidden units.
 
     a. Give the resulting modified formula for these generalized flows.
 
-    b. __Additional__: Note that one can no longer use the vanilla form of the matrix determinant lemma to calculate the determinant of this generalized transformation’s Jacobian.  Fortunately, there is a [generalized matrix determinant lemma](https://en.wikipedia.org/wiki/Matrix_determinant__lemma#Generalization) which enables us to calculate the determinant.
-Write down the determinant, and specify the order complexity of calculating it in terms of the number of hidden units.
-(As with planar flows, not all such flows will be invertible.
-[Sylvester normalizing flows](https://arxiv.org/pdf/1803.05649.pdf) arise as special forms of the above transformations where one obtains invertibility based on specific assumed forms for the weight matrices in the MLP - note that these forms also need to be maintained throughout training.)
+    b. Note that one can no longer use the vanilla form of the matrix determinant lemma to calculate the determinant of this generalized transformation’s Jacobian.  Fortunately, there is a [generalized matrix determinant lemma](https://en.wikipedia.org/wiki/Matrix_determinant__lemma#Generalization) which enables us to calculate the determinant. Write down the determinant, and specify the order complexity of calculating it in terms of the number of hidden units.  (As with planar flows, not all such flows will be invertible.
+[Sylvester normalizing flows](https://arxiv.org/pdf/1803.05649.pdf) arise as special forms of the above transformations where one obtains invertibility based on specific assumed forms for the weight matrices in the MLP - note that these forms also need to be maintained throughout training.) (__Additional__)
 
-7. __Additional__: Inequality 12 of [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558) gives the IWAE lower bound on the marginal likelihood.
-Derive this result by using Jensen's inequality after using $$q(z|x)$$ as a proposal distribution for importance sampling from $$p(z|x)$$. (If you are not familiar with importance sampling, the relevant formula (with $$q$$ as proposal for $$p$$) is the second one on [this page](https://towardsdatascience.com/importance-sampling-introduction-e76b2c32e744).)
+7. Inequality 12 of [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558) gives the IWAE lower bound on the marginal likelihood.
+Derive this result by using Jensen's inequality after using $$q(z|x)$$ as a proposal distribution for importance sampling from $$p(z|x)$$. (If you are not familiar with importance sampling, the relevant formula (with $$q$$ as proposal for $$p$$) is the second one on [this page](https://towardsdatascience.com/importance-sampling-introduction-e76b2c32e744).) (__Additional__)
 
-8. Try to explain in your own words the issue of encoder overfitting discussed in Section 5.5.1 [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558), and when you should prefer using flows to increase the complexity of the variational approximation to increasing the expressiveness of the encoder.
+8. How do you think the authors might have gotten the “true posteriors” in Figure 2 of [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558)?
+
+9. Try to explain in your own words the issue of encoder overfitting discussed in Section 5.5.1 [Inference Suboptimality in Variational Autoencoders](https://arxiv.org/abs/1801.03558), and when you should prefer using flows to increase the complexity of the variational approximation to increasing the expressiveness of the encoder.
+
+[Solutions](https://colab.research.google.com/drive/1CiZcHcshztxqVgxx1qk_e_1oN2fnnUNg)
 
 <br />

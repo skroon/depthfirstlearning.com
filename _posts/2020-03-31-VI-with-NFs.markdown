@@ -3,7 +3,7 @@ layout: post
 title:  "Variational Inference with Normalizing Flows"
 date:   2020-03-31 6:00:00 -0400
 categories: neural-nets,variational-inference,normalizing-flows
-authors: ['kroon'] 
+author: 'kroon' 
 blurb: "Large-scale neural models using amortized variational inference, such as the variational auto-encoder, typically rely on simple variational families.
 On the other hand, normalizing flows provide a bridge between simple base distributions and more complex distributions of interest.
 The paper this guide targets shows how to use normalizing flows to enrich the variational family for amortized variational inference."
@@ -18,20 +18,8 @@ Finally, thank you to Laurent Dinh and Rianne van der Berg for sitting in on our
 
 __TODOs__:
 
-- Discuss with Avital
-    - should I include supporting material? (Omitting for now); currently including only additional material.
-    - Incorporate solutions somehow - colabs? where should they go? separate one for each week (as currently). (Remove any additional exercises we don't have solutions for; also remove solutions for questions which are no longer in exercises.)
-    - Do I need to specify prerequisites explicitly?  Add as a separate doc like resurrecting sigmoid?
-    - suggestions for improvements
-    - Provide access to scribe notes (how much cleanup/uniformity), zoom sessions, GDoc with Weekly curricula as well?  What should I do about extra comments there, but not in curriculum
-    - What exercises to include (what scope) - gut feeling is that more is better, if solutions are provided?
-    - Keeping Slack open, create channel for each week/topics? (Could leverage repeated topics like GANs, VAEs, KL divergence, etc.)
-    - "Written jointly by [blank]"?  How to get authorname to appear?
-    - where/if to mention Jane Street?
-
 - Prepare and link to solutions:
-    - All weeks: may need to make/provide copies for DFL, so not on my own Google account
-    - All weeks: need to update numbering from alphetical to numbered to match website
+    - All weeks: need to update numbering from alphetical to numbered to match website (also separate additional/optional exercises (where we don't have solutions)
     - All weeks: Indicate implementation exercises in some way in post
     - Week 1: https://colab.research.google.com/drive/1EGEREIdV0RxF27KKnqC2HXDu3rdxdB7A - done
     - Week 2: https://colab.research.google.com/drive/1WJSnWguTRCHlJm3TFdpz5bJ9YhBVx-Xu - Q7 still needs a solution added, Q8 code needs to be neatened up, and we should resolve comments, may also need an extra part for the Additional question.
@@ -46,15 +34,18 @@ __TODOs__:
     - James scribe notes: had a TODO for Scott code, which I have now provided the link to for you.  Do you want to add/change anything there?
     - General clean-up and editing, making uniform (out of scope?)
 
+- Access to scribe notes (how much cleanup/uniformity), zoom sessions, GDoc with Weekly curricula as well?  What should I do about extra comments there, but not in curriculum.  Include a link.  Consider that some may not wish their zoom sessions to be public - so probably better not to include this.  Also mention what is there (supportming material, further description, prerequisites, etc.  May need to make a more public version, so links to other files work, without exposing the full folder publicly?
+- Add comment on variational EM reading, motivating why it is relevant?
+- Consider restoring questions I have deleted, even if there are no solutions?
+- Links to code - should not be editable to the public? sandbox versions?
+- "Written by [blank]"?  How to get authorname to appear? Changed `_config.yml`, but no effect.
 - Identify stuff for Suvarna to assist with as needed.
-- Construct dependency diagram, figure out click-to-navigate: We made the navigable concept maps with draw.io (recently renamed to diagrams.net).  See avital email for examples from TRPO and Resurrecting sigmoid.  The only one tricky thing is that you don't know the correct URL for the links until the page is done (because the anchor tags, e.g. #2-signal-propagation, are generated from the subsection names). https://drive.google.com/file/d/1huS5VeEdsUvKr06nBnFZFkV3nQWxUr_7/view has the earlier versions.  Allocated to Suvarna
-- Revise the readings that didn't work so well? Mainly Tzikas?
 - Update thanks above as appropriate
 - Correct date in metadata and filename
-- Pull in latest master DFL changes to website
+- Construct commit on new fork for Avital? Let him know when he can start proof-reading
 
 <div class="deps-graph">
-<iframe class="deps" src="/assets/vi-with-nfs.svg" width="200"></iframe>
+<iframe class="deps" src="/assets/VI-with-NFs.svg" width="200"></iframe>
 <div>Concept dependency graph. Click to navigate.</div>
 </div>
 

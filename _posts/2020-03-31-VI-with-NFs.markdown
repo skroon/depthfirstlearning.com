@@ -16,20 +16,14 @@ Thank you too to the Depth First Learning team for bringing me on board, and esp
 
 Finally, thank you to Laurent Dinh and Rianne van der Berg for sitting in on our discussion sessions and sharing their inputs, and to them, Avital, and the study group members for their feedback on and contributions to various drafts of this material.
 
-__TODOs__:
+__Solution TODOs__:
 
-- Improve/expand solutions (Scott co-ordinating, Suvarna available to help):
-    - Week 2: Q7 still needs a solution added, Q8 code needs to be neatened up; could also do with extra code for the comparison in the last part of the sentence.
-    - Week 3: Q1 still needs an implementation; don't think we have a solution to Q11 yet.
-    - Week 4: Q5b solution not yet done.  Q5 and Q6 could be adjusted to run in the colab, preferably, to show solutions to Q6(a) and (b).
-    - Week 5: Could still scale Q5 up to >2D
-    - Week 6: Still need an implementation for Q3 and Q5
-    - Integrate anything else Scott has to add?
-
-- Still need Witold's scribe notes for week 4. (Jean-Michel indicated a while ago he and Scott might be able to help Witold finish this.) - Witold has indicated he will finish over the weekend of 2-3 May, and send to Jean. (Update references to some vs all of the discussion sessions in outline and GDoc preamble as appropriate.)
-- Informing participants I am assuming they are comfortable sharing their scribe notes publicly (unless they opt out).  If they make any changes, please let me know, so I can update the PDF. (Once I have from Witold)
-- Correct date in metadata and filename
-- Construct commit on new fork for Avital? Let him know when he can start proof-reading
+- Week 2: Q7 still needs a solution added, Q8 code needs to be neatened up; could also do with extra code for the comparison in the last part of the sentence.
+- Week 3: Q1 still needs an implementation; don't think we have a solution to Q11 yet.
+- Week 4: Q6 could be adjusted to run in the colab, preferably, to show solutions to Q6(a) and (b).
+- Week 5: Could still scale Q5 up to >2D
+- Week 6: Still need an implementation for Q5.  Q3 code is there, but it is not clear what we are looking for - what examples in Fig 1 of the main paper do they correspond to?  Planar flows for Gaussian base distribution, presumably for differing values of K?  How does the 1, 1, 8 in the for loop correspond to K = 1, 2, 10?
+- Integrate anything else Scott has to add?
 
 <div class="deps-graph">
 <iframe class="deps" src="/assets/VI-with-NFs.svg" width="200"></iframe>

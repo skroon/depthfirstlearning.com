@@ -10,20 +10,11 @@ The paper this guide targets shows how to use normalizing flows to enrich the va
 feedback: true
 ---
 
-Firstly, a huge thank-you to the participants in the study group that led to this guide, for their enthusiastic participation, interesting perspectives and insights, and useful feedback and contributions: Bharati Srinivasan, Lood van Niekerk, Suvarna Kadam, James Allingham, Jean Michel Sarr, Scott Cameron, and Witold Szejgis.
+Firstly, a huge thank-you to the participants in the study group that led to this guide, for their enthusiastic participation, interesting perspectives and insights, and useful feedback and contributions: Scott Cameron, Jean Michel Sarr, Suvarna Kadam, James Allingham, Bharati Srinivasan, Lood van Niekerk, and Witold Szejgis.
 
 Thank you too to the Depth First Learning team for bringing me on board, and especially to Avital Oliver for helping get things started, keeping them on the rails, organizing guests for study group sessions, and gently but insistently nudging me to wrap things up after the study group had concluded.
 
 Finally, thank you to Laurent Dinh and Rianne van der Berg for sitting in on our discussion sessions and sharing their inputs, and to them, Avital, and the study group members for their feedback on and contributions to various drafts of this material.
-
-__Solution TODOs__:
-
-- Week 2: Q7 still needs a solution added, Q8 code needs to be neatened up; could also do with extra code for the comparison in the last part of the sentence.
-- Week 3: Q1 still needs an implementation; don't think we have a solution to Q11 yet.
-- Week 4: Q6 could be adjusted to run in the colab, preferably, to show solutions to Q6(a) and (b).
-- Week 5: Could still scale Q5 up to >2D
-- Week 6: Still need an implementation for Q5.  Q3 code is there, but it is not clear what we are looking for - what examples in Fig 1 of the main paper do they correspond to?  Planar flows for Gaussian base distribution, presumably for differing values of K?  How does the 1, 1, 8 in the for loop correspond to K = 1, 2, 10?
-- Integrate anything else Scott has to add?
 
 <div class="deps-graph">
 <iframe class="deps" src="/assets/VI-with-NFs.svg" width="200"></iframe>
@@ -53,7 +44,7 @@ Normalizing flows (NFs) are a modelling approach which represent a density of in
 NFs can enable one to model a rich class of distributions by specifying parameters for these transformations.
 We introduce the key ideas of NFs in Section 5, and then move on to the main paper (Section 6), which leverages NFs to improve the richness of the family of approximate latent distributions used in amortized VI.
 
-_A [Google Doc containing an expanded version of this curriculum](https://docs.google.com/document/d/1a8WH0D5ZCCeiIus119ROigVgd4t8p2RwZLbMk6Zp3yc/edit?usp=sharing) is also available.  It contains mor e information on assumed prerequisites, additional rationale for and commentary on various assigned readings, links to supporting material to help mastering the required reading, a couple of extra exercises that did not make the final curriculum, and scribe notes from the group discussion sessions._
+_A [Google Doc containing an expanded version of this curriculum](https://docs.google.com/document/d/1a8WH0D5ZCCeiIus119ROigVgd4t8p2RwZLbMk6Zp3yc/edit?usp=sharing) is also available.  It contains more information on assumed prerequisites, additional rationale for and commentary on various assigned readings, links to supporting material to help mastering the required reading, a couple of extra exercises that did not make the final curriculum, and scribe notes from the group discussion sessions._
 
 # 1 Bayesian inference and latent variable models
 
